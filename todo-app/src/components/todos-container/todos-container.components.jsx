@@ -54,6 +54,17 @@ class TodosContainer extends React.Component {
         })
         .catch(error => console.log(error))
     }
+    deleteTodo = (id) => {
+        axios.delete(`/api/v1/todos/${id}`)
+        .then(response => {
+            const todoIndex = this.state.todos.findIndex(x => x.id === id)
+            const todos = update(this.state.todos, {
+                $splice: [[todoIndex, 1]]
+            })
+            this.setState({todos:todos})
+        })
+        .catch(error => console.log(error))
+    }
 
     render() {
         return (
@@ -73,7 +84,7 @@ class TodosContainer extends React.Component {
                                 <li className="task" todo={todo} key={todo.id} >
                                     <input type="checkbox" className="taskCheckbox" checked={todo.done} onChange={(e)=> this.updateTodo(e, todo.id) }/>
                                     <label className="taskLabel">{todo.title}</label>
-                                    <span className="deleteTaskBtn">X</span>
+                                    <span className="deleteTaskBtn" onClick = {(e)=>this.deleteTodo(todo.id)}>X</span>
                                 </li>
                             )
                         })}

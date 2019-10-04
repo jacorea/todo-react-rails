@@ -11,7 +11,7 @@
   "devDependencies": {},
   "scripts": {
     "build": "cd todo-app && npm install && npm run build && cd ..",
-    "deploy": "cp -a todo-app/build/ .public/",
+    "deploy": "cp -a front-end-app/build/. public/",
     "postinstall": "npm run build && npm run deploy && echo 'todo-app built!'"
   },
   "repository": {
